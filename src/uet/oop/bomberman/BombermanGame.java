@@ -47,6 +47,7 @@ public class BombermanGame extends Application {
     private int count_newGame = 0;
     private int count_toLevel = 0;
     private boolean nextLevel = false;
+    private boolean playMedia = false;
 
     private boolean end = true;
     private boolean start = true;
@@ -92,6 +93,8 @@ public class BombermanGame extends Application {
             }
         });
 
+        mediaPlayer.pause();
+
         // Tao scene
         Scene scene = new Scene(root);
 
@@ -106,7 +109,7 @@ public class BombermanGame extends Application {
                 if (nextLevel) {
                     end = true;
                     count_toLevel++;
-                    //Hien 1s level 2
+                    //Hien 1s (một giây) level 2
                     if (count_toLevel >= 10 && count_toLevel < 70) {
                         renderText("Level 2");
                     }
@@ -119,8 +122,16 @@ public class BombermanGame extends Application {
                 }
 
                 if (!end) {
+                    if(!playMedia) {
+                        mediaPlayer.play();
+                        playMedia = true;
+                    }
+
                     render();
                     update();
+                } else {
+                    mediaPlayer.pause();
+                    playMedia = false;
                 }
 
                 if (end && !start && !nextLevel) {
