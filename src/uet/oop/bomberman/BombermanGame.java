@@ -85,7 +85,7 @@ public class BombermanGame extends Application {
         Media media = new Media(new File(path).toURI().toString());
         mediaPlayer = new MediaPlayer(media);
         mediaPlayer.setVolume(0.1);
-        //mediaPlayer.setAutoPlay(true);
+        mediaPlayer.setAutoPlay(true);
         mediaPlayer.setOnEndOfMedia(new Runnable() {
             public void run() {
                 mediaPlayer.seek(Duration.ZERO);
@@ -154,18 +154,6 @@ public class BombermanGame extends Application {
         timer.start();
 
         createMap(1);
-
-        for (int i = 0; i < entities.size(); i++) {
-            if(entities.get(i) instanceof Balloom) {
-                System.out.println("Balloom: " + i);
-            }
-            if(entities.get(i) instanceof Oneal) {
-                System.out.println("Oneal: " + i);
-            }
-            if(entities.get(i) instanceof Bomber) {
-                System.out.println("Bomber: " + i);
-            }
-        }
 
         bomberman = new Bomber(1, 1, Sprite.player_right.getFxImage());
         bomberman.isLive = true;
