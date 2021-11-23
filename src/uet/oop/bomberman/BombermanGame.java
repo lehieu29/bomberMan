@@ -106,10 +106,11 @@ public class BombermanGame extends Application {
                 if (nextLevel) {
                     end = true;
                     count_toLevel++;
-                    if (count_toLevel >= 60 && count_toLevel < 180) {
+                    //Hien 1s level 2
+                    if (count_toLevel >= 10 && count_toLevel < 70) {
                         renderText("Level 2");
                     }
-                    if (count_toLevel >= 180) {
+                    if (count_toLevel >= 70) {
                         count_toLevel = 0;
                         nextLevel = false;
                         end = false;
@@ -124,22 +125,23 @@ public class BombermanGame extends Application {
 
                 if (end && !start && !nextLevel) {
                     count_newGame++;
-                    if (count_newGame >= 300) {
+                    //2s hien new game
+                    if (count_newGame >= 120) {
                         count_newGame = 0;
                         start = true;
                     }
                 }
 
                 if(start) {
-                    //3s hien new game
-                    if (count_newGame < 180) {
+                    //2s hien new game
+                    if (count_newGame < 120) {
                         renderText("NEW GAME");
                     }
-                    //2s hien level 1
-                    if (count_newGame >= 180 && count_newGame < 400) {
+                    //1s hien level 1
+                    if (count_newGame >= 120 && count_newGame < 180) {
                         renderText("Level 1");
                     }
-                    if (count_newGame >= 400) {
+                    if (count_newGame >= 180) {
                         start = false;
                         count_newGame = 0;
                         newGame();

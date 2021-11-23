@@ -169,8 +169,25 @@ public class Bomber extends Entity {
         int a4 = (a + 32 - 4) / 32;
         int b4 = (b + 32 - 2) / 32;
 
-        return !((isWall(a1, b1) || isBrick(a1, b1)) || (isWall(a2, b2) || isBrick(a2, b2))
-                || (isWall(a3, b3) || isBrick(a3, b3)) || (isWall(a4, b4) || isBrick(a4, b4)));
+        return !((isWall(a1, b1) || isBrick(a1, b1) || isBomb(a1, b1))
+                || (isWall(a2, b2) || isBrick(a2, b2) || isBomb(a2, b2))
+                || (isWall(a3, b3) || isBrick(a3, b3) || isBomb(a3, b3))
+                || (isWall(a4, b4) || isBrick(a4, b4) || isBomb(a4, b4)));
+    }
+
+    @Override
+    public boolean isBomb(int a, int b) {
+        for (int i = 0; i < BombermanGame.getBombObject().size(); i++) {
+            if (BombermanGame.getBombObject().get(i) instanceof Bomb
+                    && BombermanGame.getBombObject().get(i).motionless) {
+                if (BombermanGame.getBombObject().get(i).getX() / 32 == a
+                        && BombermanGame.getBombObject().get(i).getY() / 32 == b) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
     }
 
     public int indexItem() {

@@ -26,7 +26,10 @@ public abstract class Entity {
     public int interval = 5;
     public int indexAnim = 0;
 
-    //
+    //Khong cho di vao qua bom
+    public boolean motionless = false;
+
+    //Next Level
     public boolean isNextLevel = false;
     //Số lượng bomb
     public int quantityBomb = 1;

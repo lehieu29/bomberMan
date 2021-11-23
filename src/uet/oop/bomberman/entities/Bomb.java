@@ -18,6 +18,12 @@ public class Bomb extends Entity {
         //Pause game
         if(BombermanGame.getBomberMan().isPause) return;
 
+        if (!motionless) {
+            if (isNotBomberman()) {
+                motionless = true;
+            }
+        }
+
         if (deadEntity()) {
             exploded = true;
         } else {
@@ -198,18 +204,24 @@ public class Bomb extends Entity {
         return -1;
     }
 
-//    //Ở bên BombermanGame add Grass lúc nhấn SPACE
-//    //Tìm index Grass trong bombObject để đổi thành Explosion
-//    public int indexGrass(int a, int b) {
-//        for (int i = 0; i < BombermanGame.getBombObject().size(); i++) {
-//            if (BombermanGame.getBombObject().get(i) instanceof Grass) {
-//               if (BombermanGame.getBombObject().get(i).getX() / 32 == a
-//                        && BombermanGame.getBombObject().get(i).getY() / 32 == b) {
-//                   return i;
-//               }
-//            }
-//        }
-//
-//        return -1;
-//    }
+    //Kiểm tra xem Bomberman đi ra ngoài quả bom chưa
+    public boolean isNotBomberman() {
+        int a = BombermanGame.getBomberMan().getX();
+        int b = BombermanGame.getBomberMan().getY();
+
+        int a1 = a / 32;
+        int b1 = b / 32;
+
+        int a2 = (a + 32 - 1) / 32;
+        int b2 = b / 32;
+
+        int a3 = a / 32;
+        int b3 = (b + 32 - 1) / 32;
+
+        int a4 = (a + 32 - 1) / 32;
+        int b4 = (b + 32 - 1) / 32;
+
+        return !((a1 == x / 32 && b1 == y / 32) || (a2 == x / 32 && b2 == y / 32)
+                || (a3 == x / 32 && b3 == y / 32) || (a4 == x / 32 && b4 == y / 32));
+    }
 }
