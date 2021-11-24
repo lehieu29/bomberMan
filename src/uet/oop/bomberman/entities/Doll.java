@@ -35,6 +35,9 @@ public class Doll extends Entity {
                     right = true;
                 }
 
+                countToPlayMedia = 0;
+                isPlayAttack = false;
+
                 //Đếm thời gian rồi random đi lên trên hay xuống dưới
                 if (countMove_up_down == 240) {
                     int rand = (int) (Math.random() * 100);

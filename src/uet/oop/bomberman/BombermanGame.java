@@ -39,6 +39,7 @@ public class BombermanGame extends Application {
 
     //Media Player
     private MediaPlayer mediaPlayer;
+    public static MediaPlayer mp;
 //    private MediaPlayer waitMediaPlayer;
 
     private int TIME = 20;
@@ -465,7 +466,7 @@ public class BombermanGame extends Application {
     public static MediaPlayer playMedia(String song) {
         String path = "res/media/" + song;
         Media media = new Media(new File(path).toURI().toString());
-        MediaPlayer mp = new MediaPlayer(media);
+        mp = new MediaPlayer(media);
         mp.setVolume(0.2);
         mp.setAutoPlay(true);
 

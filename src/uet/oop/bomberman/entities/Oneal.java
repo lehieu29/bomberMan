@@ -29,7 +29,7 @@ public class Oneal extends Entity {
 
         if (isLive) {
             isMove = false;
-            if (count_change_speed == 60) {
+            if (count_change_speed >= 60) {
                 SPEED = (int) (Math.random() * 2) + 1;
                 count_change_speed = 0;
             } else {
@@ -41,6 +41,9 @@ public class Oneal extends Entity {
                     chaseBomber = false;
                     right = true;
                 }
+
+                countToPlayMedia = 0;
+                isPlayAttack = false;
 
                 //Đếm thời gian rồi random đi lên trên hay xuống dưới
                 if (countMove_up_down == 240) {
@@ -139,7 +142,7 @@ public class Oneal extends Entity {
                 }
 
                 //Cần Oneal đi lên trên để đuổi Bomberman.
-                if (!isFind && BombermanGame.getBomberMan().getY() / 32 < y / 32) {
+                if (!isFind && (BombermanGame.getBomberMan().getY() / 32) < y / 32) {
                     //Nếu không thể đi lên trên thì tìm đường sang trái hoặc sang phải
                     if (!canMove(x, y - SPEED)) {
                         //Nếu không thể đi sang trái

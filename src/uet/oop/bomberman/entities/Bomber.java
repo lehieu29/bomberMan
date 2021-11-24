@@ -257,8 +257,8 @@ public class Bomber extends Entity {
         for (int i = 0; i < BombermanGame.getEntities().size(); i++) {
             if (BombermanGame.getEntities().get(i) instanceof Balloom
                     || BombermanGame.getEntities().get(i) instanceof Oneal) {
-                if (BombermanGame.getEntities().get(i).getX() / 32 == a
-                        && BombermanGame.getEntities().get(i).getY() / 32 == b) {
+                if ((BombermanGame.getEntities().get(i).getX() + 16) / 32 == a
+                        && (BombermanGame.getEntities().get(i).getY() + 16) / 32 == b) {
                     return true;
                 }
             }
