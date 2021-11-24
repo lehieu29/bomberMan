@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>uet.oop.bomberman.entities</OriginalElement>
+  <nodes>
+    <node x="760.0" y="905.0">uet.oop.bomberman.entities.Oneal</node>
+    <node x="1190.0" y="916.5">uet.oop.bomberman.entities.Bomb</node>
+    <node x="366.0" y="1001.5">uet.oop.bomberman.entities.Items</node>
+    <node x="1639.0" y="1001.5">uet.oop.bomberman.entities.Grass</node>
+    <node x="182.0" y="989.0">uet.oop.bomberman.entities.Brick</node>
+    <node x="1396.0" y="989.0">uet.oop.bomberman.entities.BombExplosion</node>
+    <node x="977.0" y="881.0">uet.oop.bomberman.entities.Bomber</node>
+    <node x="1826.0" y="905.0">uet.oop.bomberman.entities.Doll</node>
+    <node x="552.0" y="977.0">uet.oop.bomberman.entities.Balloom</node>
+    <node x="0.0" y="1001.5">uet.oop.bomberman.entities.Wall</node>
+    <node x="858.0" y="0.0">uet.oop.bomberman.entities.Entity</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="uet.oop.bomberman.entities.Brick" target="uet.oop.bomberman.entities.Entity" relationship="GENERALIZATION">
+      <point x="0.0" y="-55.0" />
+      <point x="264.0" y="856.0" />
+      <point x="966.0" y="856.0" />
+      <point x="0.0" y="415.5" />
+    </edge>
+    <edge source="uet.oop.bomberman.entities.Balloom" target="uet.oop.bomberman.entities.Entity" relationship="GENERALIZATION">
+      <point x="0.0" y="-67.0" />
+      <point x="646.0" y="856.0" />
+      <point x="966.0" y="856.0" />
+      <point x="0.0" y="415.5" />
+    </edge>
+    <edge source="uet.oop.bomberman.entities.Wall" target="uet.oop.bomberman.entities.Entity" relationship="GENERALIZATION">
+      <point x="0.0" y="-42.5" />
+      <point x="81.0" y="856.0" />
+      <point x="966.0" y="856.0" />
+      <point x="0.0" y="415.5" />
+    </edge>
+    <edge source="uet.oop.bomberman.entities.Oneal" target="uet.oop.bomberman.entities.Entity" relationship="GENERALIZATION">
+      <point x="0.0" y="-139.0" />
+      <point x="858.5" y="856.0" />
+      <point x="966.0" y="856.0" />
+      <point x="0.0" y="415.5" />
+    </edge>
+    <edge source="uet.oop.bomberman.entities.Items" target="uet.oop.bomberman.entities.Entity" relationship="GENERALIZATION">
+      <point x="0.0" y="-42.5" />
+      <point x="449.0" y="856.0" />
+      <point x="966.0" y="856.0" />
+      <point x="0.0" y="415.5" />
+    </edge>
+    <edge source="uet.oop.bomberman.entities.Bomb" target="uet.oop.bomberman.entities.Entity" relationship="GENERALIZATION">
+      <point x="0.0" y="-127.5" />
+      <point x="1283.0" y="856.0" />
+      <point x="966.0" y="856.0" />
+      <point x="0.0" y="415.5" />
+    </edge>
+    <edge source="uet.oop.bomberman.entities.Grass" target="uet.oop.bomberman.entities.Entity" relationship="GENERALIZATION">
+      <point x="0.0" y="-42.5" />
+      <point x="1722.5" y="856.0" />
+      <point x="966.0" y="856.0" />
+      <point x="0.0" y="415.5" />
+    </edge>
+    <edge source="uet.oop.bomberman.entities.BombExplosion" target="uet.oop.bomberman.entities.Entity" relationship="GENERALIZATION">
+      <point x="0.0" y="-55.0" />
+      <point x="1507.5" y="856.0" />
+      <point x="966.0" y="856.0" />
+      <point x="0.0" y="415.5" />
+    </edge>
+    <edge source="uet.oop.bomberman.entities.Bomber" target="uet.oop.bomberman.entities.Entity" relationship="GENERALIZATION">
+      <point x="0.0" y="-163.0" />
+      <point x="1073.5" y="856.0" />
+      <point x="966.0" y="856.0" />
+      <point x="0.0" y="415.5" />
+    </edge>
+    <edge source="uet.oop.bomberman.entities.Doll" target="uet.oop.bomberman.entities.Entity" relationship="GENERALIZATION">
+      <point x="0.0" y="-139.0" />
+      <point x="1924.5" y="856.0" />
+      <point x="966.0" y="856.0" />
+      <point x="0.0" y="415.5" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic" zoom="0.4352078239608802" showDependencies="false" x="1011.5" y="603.5" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Constructors</Category>
+    <Category>Fields</Category>
+    <Category>Inner Classes</Category>
+    <Category>Methods</Category>
+    <Category>Properties</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+
