@@ -11,6 +11,8 @@ public class Oneal extends Entity {
     private int count_change_speed;
     private boolean chaseBomber; //Kiểm tra xem đã đuổi Bomberman chưa để reset di chuyển
     private boolean isFind; //Kiếm tra xem đã tìm đường để đuổi Bomberman chưa?
+    private boolean isPlayAttack = false;
+    private int countToPlayMedia = 0;
 
     public Oneal(int x, int y, Image img) {
         super(x, y, img);
@@ -88,6 +90,20 @@ public class Oneal extends Entity {
                 /*
                 Đuổi Bomberman.
                  */
+
+                if (!isPlayAttack) {
+                    BombermanGame.playMedia("attackwarning.wav");
+                    isPlayAttack = true;
+                }
+
+                if (isPlayAttack) {
+                    countToPlayMedia++;
+
+                    if (countToPlayMedia >= 120) {
+                        isPlayAttack = false;
+                        countToPlayMedia = 0;
+                    }
+                }
 
                 if(SPEED == 2) {
                     SPEED = 1;
@@ -259,7 +275,7 @@ public class Oneal extends Entity {
             img = Sprite.oneal_dead.getFxImage();
             frame++;
             if (frame > 40) {
-                BombermanGame.playMedia("EnemyDead.wav");
+                BombermanGame.playMedia("EnemyDead.wav").setVolume(0.3);
                 BombermanGame.getBomberMan().point += 200;
                 BombermanGame.getEntities().remove(this);
                 if(isDeadAllEnemy()) {

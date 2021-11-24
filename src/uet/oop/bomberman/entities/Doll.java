@@ -11,6 +11,8 @@ public class Doll extends Entity {
     private int count_change_speed;
     private boolean chaseBomber; //Kiểm tra xem đã đuổi Bomberman chưa để reset di chuyển
     private boolean isFind; //Kiếm tra xem đã tìm đường để đuổi Bomberman chưa?
+    private boolean isPlayAttack = false;
+    private int countToPlayMedia = 0;
 
     public Doll(int x, int y, Image img) {
         super(x, y, img);
@@ -81,112 +83,49 @@ public class Doll extends Entity {
                 /*
                 Đuổi Bomberman.
                  */
+
+                if (!isPlayAttack) {
+                    BombermanGame.playMedia("attackwarning.wav");
+                    isPlayAttack = true;
+                }
+
+                if (isPlayAttack) {
+                    countToPlayMedia++;
+
+                    if (countToPlayMedia >= 120) {
+                        isPlayAttack = false;
+                        countToPlayMedia = 0;
+                    }
+                }
+
                 isFind = false;
                 chaseBomber = true;
 
                 //Cần Oneal đi sang phải để đuổi Bomberman
                 if (!isFind && BombermanGame.getBomberMan().getX() / 32 > x / 32) {
-                    //Nếu không thể sang phải thì đi lên hoặc xuống để tìm đường sang phải
-                    if (!canMove(x + SPEED, y)) {
-                        //Nếu không thể đi xuống thì đi lên, không thì đi xuống
-                        if (!canMove(x, y + SPEED)) {
-                            up = true;
-                            down = false;
-                        }
-                        if (!canMove(x, y - SPEED)) {
-                            up = false;
-                            down = true;
-                        }
-
-                        //Nếu không thể sang phải, đi lên và đi xuống thì đi sang trái
-                        if(!canMove(x, y + SPEED) && !canMove(x, y - SPEED)) {
-                            right = false;
-                            left = true;
-                        }
-                    } else {
-                        right = true;
-                        left = false;
-                    }
-
+                    right = true;
+                    left = false;
                     isFind = true; //Đã tìm được hướng di chuyển thoát vòng if else của dòng 80 ra và di chuyển.
                 }
 
                 //Cần Oneal đi lên trên để đuổi Bomberman.
                 if (!isFind && BombermanGame.getBomberMan().getY() / 32 < y / 32) {
-                    //Nếu không thể đi lên trên thì tìm đường sang trái hoặc sang phải
-                    if (!canMove(x, y - SPEED)) {
-                        //Nếu không thể đi sang trái
-                        if (!canMove(x - SPEED, y)) {
-                            right = true;
-                            left = false;
-                        }
-                        //Nếu không thể đi sang phải thì đi sang trái
-                        if (!canMove(x + SPEED, y)) {
-                            right = false;
-                            left = true;
-                        }
-
-                        //Nếu k thể lên trên, sang trái và sang phải thì đi xuống
-                        if (!canMove(x - SPEED, y) && !canMove(x + SPEED, y)) {
-                            up = false;
-                            down = true;
-                        }
-                    } else {
-                        up = true;
-                        down = false;
-                    }
+                    up = true;
+                    down = false;
                     isFind = true;
                 }
 
                 //Cần Oneal đi xuống dưới để đuổi Bomberman.
                 if (!isFind && BombermanGame.getBomberMan().getY() / 32 > y / 32) {
-                    //Nếu không thể đi xuống thì đi sang phải hoặc sang trái để tìm đường
-                    if (!canMove(x, y + SPEED)) {
-                        //Nếu không thể sang trái thì sang phải, không thì sang trái
-                        if (!canMove(x - SPEED, y)) {
-                            right = true;
-                            left = false;
-                        }
-                        if (!canMove(x + SPEED, y)) {
-                            right = false;
-                            left = true;
-                        }
-
-                        //Nếu k thể xuống dưới, sang trái và sang phải thì đi xuống
-                        if (!canMove(x - SPEED, y) && !canMove(x + SPEED, y)) {
-                            up = true;
-                            down = false;
-                        }
-                    } else {
-                        up = false;
-                        down = true;
-                    }
+                    up = false;
+                    down = true;
                     isFind = true;
                 }
 
                 //Cần Oneal đi sang trái để đuổi Bomberman
                 if (!isFind && BombermanGame.getBomberMan().getX() / 32 < x / 32) {
-                    //Nếu không thể sang trái
-                    if (!canMove(x - SPEED, y)) {
-                        //Nếu không thể đi xuống thì đi lên, không thì đi xuống
-                        if (!canMove(x, y + SPEED)) {
-                            up = true;
-                            down = false;
-                        }
-                        if (!canMove(x, y - SPEED)) {
-                            up = false;
-                            down = true;
-                        }
-
-                        //Nếu không thể sang trái, đi lên và đi xuống thì đi sang phải
-                        if(!canMove(x, y + SPEED) && !canMove(x, y - SPEED)) {
-                            right = true;
-                            left = false;
-                        }
-                    } else {
-                        right = false;
-                        left = true;
-                    }
+                    right = false;
+                    left = true;
                     isFind = true;
                 }
             }
@@ -248,7 +187,7 @@ public class Doll extends Entity {
             img = Sprite.doll_dead.getFxImage();
             frame++;
             if (frame > 40) {
-                BombermanGame.playMedia("EnemyDead.wav");
+                BombermanGame.playMedia("EnemyDead.wav").setVolume(0.3);
                 BombermanGame.getBomberMan().point += 400;
                 BombermanGame.getEntities().remove(this);
                 if(isDeadAllEnemy()) {

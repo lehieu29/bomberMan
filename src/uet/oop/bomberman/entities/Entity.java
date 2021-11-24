@@ -180,7 +180,8 @@ public abstract class Entity {
     public boolean isDeadAllEnemy() {
         for (int i = 0; i < BombermanGame.getEntities().size(); i++) {
             if(BombermanGame.getEntities().get(i) instanceof Balloom
-                    || BombermanGame.getEntities().get(i) instanceof Oneal) {
+                    || BombermanGame.getEntities().get(i) instanceof Oneal
+                    || BombermanGame.getEntities().get(i) instanceof Doll) {
                 return false;
             }
         }

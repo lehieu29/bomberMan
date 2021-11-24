@@ -39,6 +39,7 @@ public class BombermanGame extends Application {
 
     //Media Player
     private MediaPlayer mediaPlayer;
+//    private MediaPlayer waitMediaPlayer;
 
     private int TIME = 20;
     private int LIVE = 3;
@@ -47,7 +48,10 @@ public class BombermanGame extends Application {
     private int count_newGame = 0;
     private int count_toLevel = 0;
     private boolean nextLevel = false;
-    private boolean playMedia = false;
+    private boolean playMedia = false; //chay nhac nen luc choi
+//    private boolean isPlayWaitMedia = true;
+//    private boolean isWin = false;
+    private boolean isPlayEndGame = false;
 
     private boolean end = true;
     private boolean start = true;
@@ -81,7 +85,7 @@ public class BombermanGame extends Application {
         root.getChildren().add(canvas);
         root.getChildren().add(canvas_Var);
 
-        //Nhac nen
+        //Nhac nen lúc chơi
         String path = "res/media/nhacnen.wav";
         Media media = new Media(new File(path).toURI().toString());
         mediaPlayer = new MediaPlayer(media);
@@ -94,6 +98,15 @@ public class BombermanGame extends Application {
         });
 
         mediaPlayer.pause();
+
+//        waitMediaPlayer = new MediaPlayer(new Media(new File("res/media/Cuoithoi.mp3").toURI().toString()));
+//        waitMediaPlayer.setVolume(0.1);
+//        waitMediaPlayer.setAutoPlay(true);
+//        waitMediaPlayer.setOnEndOfMedia(new Runnable() {
+//            public void run() {
+//                mediaPlayer.seek(Duration.ZERO);
+//            }
+//        });
 
         // Tao scene
         Scene scene = new Scene(root);
@@ -122,10 +135,21 @@ public class BombermanGame extends Application {
                 }
 
                 if (!end) {
+                    //Nhac nen luc choi thi bat len
                     if(!playMedia) {
                         mediaPlayer.play();
                         playMedia = true;
                     }
+
+                    if (isPlayEndGame) {
+                        isPlayEndGame = false;
+                    }
+
+                    //Nhac nen luc doi thi tat di ( tat bai Cuoi thoi )
+//                    if(isPlayWaitMedia) {
+//                        waitMediaPlayer.pause();
+//                        isPlayWaitMedia = false;
+//                    }
 
                     render();
                     update();
@@ -135,8 +159,13 @@ public class BombermanGame extends Application {
                 }
 
                 if (end && !start && !nextLevel) {
+                    if (!isPlayEndGame) {
+                        playMedia("endgame.mp3").setVolume(0.3);
+                        isPlayEndGame = true;
+                    }
+
                     count_newGame++;
-                    //2s hien new game
+                    //2s hien end game
                     if (count_newGame >= 120) {
                         count_newGame = 0;
                         start = true;
@@ -144,6 +173,12 @@ public class BombermanGame extends Application {
                 }
 
                 if(start) {
+                    //Bat nhac nen luc doi bai Cuoi thoi
+//                    if(!isPlayWaitMedia) {
+//                        waitMediaPlayer.play();
+//                        isPlayWaitMedia = true;
+//                    }
+
                     //2s hien new game
                     if (count_newGame < 120) {
                         renderText("NEW GAME");
@@ -523,6 +558,7 @@ public class BombermanGame extends Application {
         clearMap();
         bomberman.setX(32);
         bomberman.setY(32);
+        bomberman.isNextLevel = false;
         entities.add(bomberman);
         TIME = 300;
         createMap(2);

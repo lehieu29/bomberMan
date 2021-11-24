@@ -127,7 +127,7 @@ public class Balloom extends Entity {
             img = Sprite.balloom_dead.getFxImage();
             frame++;
             if (frame > 40) {
-                BombermanGame.playMedia("EnemyDead.wav");
+                BombermanGame.playMedia("EnemyDead.wav").setVolume(0.3);
                 BombermanGame.getBomberMan().point += 100;
                 BombermanGame.getEntities().remove(this);
                 if(isDeadAllEnemy()) {

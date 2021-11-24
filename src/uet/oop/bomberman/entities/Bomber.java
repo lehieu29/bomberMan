@@ -133,7 +133,7 @@ public class Bomber extends Entity {
                 img = Sprite.player_down.getFxImage();
             }
         } else {
-//            BombermanGame.playMedia("player_dead.mp3");
+            BombermanGame.playMedia("bomber_die.wav").setVolume(0.02);
             frame++;
             if(frame > 20) {
                 frame = 0;
@@ -265,21 +265,5 @@ public class Bomber extends Entity {
         }
 
         return false;
-    }
-
-    /*
-    Reset
-     */
-
-    public void resetQuantityBomb() {
-        quantityBomb = 1;
-    }
-
-    public void resetBombRate() {
-        bombRate = 1;
-    }
-
-    public void resetSpeed() {
-        SPEED = 1;
     }
 }
