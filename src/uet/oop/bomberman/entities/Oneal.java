@@ -9,7 +9,8 @@ public class Oneal extends Entity {
     private int countMove_up_down; // Đếm thời gian cho chạy lên xuống
     private boolean isUpDown;
     private int count_change_speed;
-    private boolean chaseBomber; //Kiểm tra xem đã đuổi Bomberman chưa để reset di chuyển
+    private boolean chaseBomber;
+    private boolean resetMove; //Reset di chuyen sau khi duoi Bomberman
     private boolean isFind; //Kiếm tra xem đã tìm đường để đuổi Bomberman chưa?
     private boolean isPlayAttack = false;
     private int countToPlayMedia = 0;
@@ -36,10 +37,22 @@ public class Oneal extends Entity {
                 count_change_speed++;
             }
 
-            if(!distanceBomber()) {
-                if(chaseBomber) {
-                    chaseBomber = false;
+            if (distanceBomber(2) && !chaseBomber) {
+                chaseBomber = true;
+            }
+
+            if (!distanceBomber(6) && chaseBomber) {
+                chaseBomber = false;
+            }
+
+            if(!chaseBomber) {
+                if(resetMove) {
+                    resetMove = false;
                     right = true;
+
+                    if (!canMove(x + SPEED, y)) {
+                        down = true;
+                    }
                 }
 
                 countToPlayMedia = 0;
@@ -116,7 +129,7 @@ public class Oneal extends Entity {
 //                }
 
                 isFind = false;
-                chaseBomber = true;
+                resetMove = true;
 
                 //Cần Oneal đi sang phải để đuổi Bomberman
                 if (!isFind && BombermanGame.getBomberMan().getX() / 32 > x / 32) {
@@ -292,7 +305,8 @@ public class Oneal extends Entity {
         }
     }
 
-    public boolean distanceBomber() {
+    public boolean distanceBomber(int i) {
+        //i la distance
         //Toa do cua Bomberman
         int a1 = BombermanGame.getBomberMan().getX() / 32;
         int b1 = BombermanGame.getBomberMan().getY() / 32;
@@ -309,10 +323,10 @@ public class Oneal extends Entity {
         int Oneal_x = x / 32;
         int Oneal_y = y / 32;
 
-        return (Math.abs(Oneal_x - a1) <= 2 && Math.abs(Oneal_y - b1) <= 2)
-                || (Math.abs(Oneal_x - a2) <= 2 && Math.abs(Oneal_y - b2) <= 2)
-                || (Math.abs(Oneal_x - a3) <= 2 && Math.abs(Oneal_y - b3) <= 2)
-                || (Math.abs(Oneal_x - a4) <= 2 && Math.abs(Oneal_y - b4) <= 2);
+        return (Math.abs(Oneal_x - a1) <= i && Math.abs(Oneal_y - b1) <= i)
+                || (Math.abs(Oneal_x - a2) <= i && Math.abs(Oneal_y - b2) <= i)
+                || (Math.abs(Oneal_x - a3) <= i && Math.abs(Oneal_y - b3) <= i)
+                || (Math.abs(Oneal_x - a4) <= i && Math.abs(Oneal_y - b4) <= i);
     }
 
 
