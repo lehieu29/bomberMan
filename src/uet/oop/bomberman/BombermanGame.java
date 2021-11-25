@@ -40,7 +40,7 @@ public class BombermanGame extends Application {
     //Media Player
     private MediaPlayer mediaPlayer;
     public static MediaPlayer mp;
-//    private MediaPlayer waitMediaPlayer;
+    private MediaPlayer waitMediaPlayer;
 
     private int TIME = 20;
     private int LIVE = 3;
@@ -50,7 +50,7 @@ public class BombermanGame extends Application {
     private int count_toLevel = 0;
     private boolean nextLevel = false;
     private boolean playMedia = false; //chay nhac nen luc choi
-//    private boolean isPlayWaitMedia = true;
+    private boolean isPlayWaitMedia = true;
 //    private boolean isWin = false;
     private boolean isPlayEndGame = false;
 
@@ -87,7 +87,8 @@ public class BombermanGame extends Application {
         root.getChildren().add(canvas_Var);
 
         //Nhac nen lúc chơi
-        String path = "res/media/nhacnen.wav";
+        String path = "res/media/menu.wav";
+//        String path = "res/media/nhacnen.wav";
         Media media = new Media(new File(path).toURI().toString());
         mediaPlayer = new MediaPlayer(media);
         mediaPlayer.setVolume(0.1);
@@ -100,14 +101,15 @@ public class BombermanGame extends Application {
 
         mediaPlayer.pause();
 
-//        waitMediaPlayer = new MediaPlayer(new Media(new File("res/media/Cuoithoi.mp3").toURI().toString()));
-//        waitMediaPlayer.setVolume(0.1);
-//        waitMediaPlayer.setAutoPlay(true);
-//        waitMediaPlayer.setOnEndOfMedia(new Runnable() {
-//            public void run() {
-//                mediaPlayer.seek(Duration.ZERO);
-//            }
-//        });
+        waitMediaPlayer = new MediaPlayer(new Media(new File("res/media/nhacnen.wav").toURI().toString()));
+//        waitMediaPlayer = new MediaPlayer(new Media(new File("res/media/menu.wav").toURI().toString()));
+        waitMediaPlayer.setVolume(0.1);
+        waitMediaPlayer.setAutoPlay(true);
+        waitMediaPlayer.setOnEndOfMedia(new Runnable() {
+            public void run() {
+                mediaPlayer.seek(Duration.ZERO);
+            }
+        });
 
         // Tao scene
         Scene scene = new Scene(root);
@@ -126,6 +128,10 @@ public class BombermanGame extends Application {
                     //Hien 1s (một giây) level 2
                     if (count_toLevel >= 10 && count_toLevel < 70) {
                         renderText("Level 2");
+                        if(!isPlayWaitMedia) {
+                            waitMediaPlayer.play();
+                            isPlayWaitMedia = true;
+                        }
                     }
                     if (count_toLevel >= 70) {
                         count_toLevel = 0;
@@ -146,11 +152,11 @@ public class BombermanGame extends Application {
                         isPlayEndGame = false;
                     }
 
-                    //Nhac nen luc doi thi tat di ( tat bai Cuoi thoi )
-//                    if(isPlayWaitMedia) {
-//                        waitMediaPlayer.pause();
-//                        isPlayWaitMedia = false;
-//                    }
+                    //Nhac nen luc doi thi tat di ( tat bai Menu )
+                    if(isPlayWaitMedia) {
+                        waitMediaPlayer.stop();
+                        isPlayWaitMedia = false;
+                    }
 
                     render();
                     update();
@@ -174,11 +180,11 @@ public class BombermanGame extends Application {
                 }
 
                 if(start) {
-                    //Bat nhac nen luc doi bai Cuoi thoi
-//                    if(!isPlayWaitMedia) {
-//                        waitMediaPlayer.play();
-//                        isPlayWaitMedia = true;
-//                    }
+                    //Bat nhac nen luc doi bai Menu
+                    if(!isPlayWaitMedia) {
+                        waitMediaPlayer.play();
+                        isPlayWaitMedia = true;
+                    }
 
                     //2s hien new game
                     if (count_newGame < 120) {
@@ -232,7 +238,7 @@ public class BombermanGame extends Application {
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
-                        int bomb_x = bomberman.getX() / 32;
+                        int bomb_x = (bomberman.getX() + 12) / 32;
                         int bomb_y = (bomberman.getY() + 16) / 32;
                         bomb = new Bomb(bomb_x, bomb_y, Sprite.bomb.getFxImage());
                         bomberman.bomb++;

@@ -133,7 +133,7 @@ public class Bomber extends Entity {
                 img = Sprite.player_down.getFxImage();
             }
         } else {
-            BombermanGame.playMedia("bomber_die.wav").setVolume(0.02);
+            BombermanGame.playMedia("bomber_die.wav").setVolume(0.01);
             frame++;
             if(frame > 20) {
                 frame = 0;

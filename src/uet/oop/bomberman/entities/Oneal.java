@@ -93,6 +93,9 @@ public class Oneal extends Entity {
                 /*
                 Đuổi Bomberman.
                  */
+                if (SPEED == 1) {
+                    SPEED = 2;
+                }
 
                 if (!isPlayAttack) {
                     BombermanGame.playMedia("attackwarning.wav");
@@ -102,15 +105,16 @@ public class Oneal extends Entity {
                 if (isPlayAttack) {
                     countToPlayMedia++;
 
-                    if (countToPlayMedia >= 120) {
+                    if (countToPlayMedia >= 360) {
                         isPlayAttack = false;
                         countToPlayMedia = 0;
                     }
                 }
 
-                if(SPEED == 2) {
-                    SPEED = 1;
-                }
+//                if(SPEED == 2) {
+//                    SPEED = 1;
+//                }
+
                 isFind = false;
                 chaseBomber = true;
 

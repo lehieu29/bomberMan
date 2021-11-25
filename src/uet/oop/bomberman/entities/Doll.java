@@ -11,8 +11,6 @@ public class Doll extends Entity {
     private int count_change_speed;
     private boolean chaseBomber; //Kiểm tra xem đã đuổi Bomberman chưa để reset di chuyển
     private boolean isFind; //Kiếm tra xem đã tìm đường để đuổi Bomberman chưa?
-    private boolean isPlayAttack = false;
-    private int countToPlayMedia = 0;
 
     public Doll(int x, int y, Image img) {
         super(x, y, img);
@@ -34,9 +32,6 @@ public class Doll extends Entity {
                     chaseBomber = false;
                     right = true;
                 }
-
-                countToPlayMedia = 0;
-                isPlayAttack = false;
 
                 //Đếm thời gian rồi random đi lên trên hay xuống dưới
                 if (countMove_up_down == 240) {
@@ -86,21 +81,6 @@ public class Doll extends Entity {
                 /*
                 Đuổi Bomberman.
                  */
-
-                if (!isPlayAttack) {
-                    BombermanGame.playMedia("attackwarning.wav");
-                    isPlayAttack = true;
-                }
-
-                if (isPlayAttack) {
-                    countToPlayMedia++;
-
-                    if (countToPlayMedia >= 120) {
-                        isPlayAttack = false;
-                        countToPlayMedia = 0;
-                    }
-                }
-
                 isFind = false;
                 chaseBomber = true;
 
@@ -217,9 +197,9 @@ public class Doll extends Entity {
         int Oneal_x = x / 32;
         int Oneal_y = y / 32;
 
-        return (Math.abs(Oneal_x - a1) <= 2 && Math.abs(Oneal_y - b1) <= 2)
-                || (Math.abs(Oneal_x - a2) <= 2 && Math.abs(Oneal_y - b2) <= 2)
-                || (Math.abs(Oneal_x - a3) <= 2 && Math.abs(Oneal_y - b3) <= 2)
-                || (Math.abs(Oneal_x - a4) <= 2 && Math.abs(Oneal_y - b4) <= 2);
+        return (Math.abs(Oneal_x - a1) <= 5 && Math.abs(Oneal_y - b1) <= 5)
+                || (Math.abs(Oneal_x - a2) <= 5 && Math.abs(Oneal_y - b2) <= 5)
+                || (Math.abs(Oneal_x - a3) <= 5 && Math.abs(Oneal_y - b3) <= 5)
+                || (Math.abs(Oneal_x - a4) <= 5 && Math.abs(Oneal_y - b4) <= 5);
     }
 }
