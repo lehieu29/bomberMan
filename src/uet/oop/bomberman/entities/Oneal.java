@@ -49,7 +49,11 @@ public class Oneal extends Entity {
                 if(resetMove) {
                     resetMove = false;
                     right = true;
+                    left = false;
+                    up = false;
+                    down = false;
 
+                    //Nếu không thể sang phải
                     if (!canMove(x + SPEED, y)) {
                         down = true;
                     }
@@ -123,10 +127,6 @@ public class Oneal extends Entity {
                         countToPlayMedia = 0;
                     }
                 }
-
-//                if(SPEED == 2) {
-//                    SPEED = 1;
-//                }
 
                 isFind = false;
                 resetMove = true;
