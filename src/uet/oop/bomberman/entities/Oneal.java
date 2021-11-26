@@ -9,7 +9,7 @@ public class Oneal extends Entity {
     private int countMove_up_down; // Đếm thời gian cho chạy lên xuống
     private boolean isUpDown;
     private int count_change_speed;
-    private boolean chaseBomber;
+//    private boolean chaseBomber = false;
     private boolean resetMove; //Reset di chuyen sau khi duoi Bomberman
     private boolean isFind; //Kiếm tra xem đã tìm đường để đuổi Bomberman chưa?
     private boolean isPlayAttack = false;
@@ -37,15 +37,7 @@ public class Oneal extends Entity {
                 count_change_speed++;
             }
 
-            if (distanceBomber(2) && !chaseBomber) {
-                chaseBomber = true;
-            }
-
-            if (!distanceBomber(6) && chaseBomber) {
-                chaseBomber = false;
-            }
-
-            if(!chaseBomber) {
+            if(!distanceBomber()) {
                 if(resetMove) {
                     resetMove = false;
                     right = true;
@@ -146,10 +138,10 @@ public class Oneal extends Entity {
                         }
 
                         //Nếu không thể sang phải, đi lên và đi xuống thì đi sang trái
-                        if(!canMove(x, y + SPEED) && !canMove(x, y - SPEED)) {
-                            right = false;
-                            left = true;
-                        }
+//                        if(!canMove(x, y + SPEED) && !canMove(x, y - SPEED)) {
+//                            right = false;
+//                            left = true;
+//                        }
                     } else {
                         right = true;
                         left = false;
@@ -174,10 +166,10 @@ public class Oneal extends Entity {
                         }
 
                         //Nếu k thể lên trên, sang trái và sang phải thì đi xuống
-                        if (!canMove(x - SPEED, y) && !canMove(x + SPEED, y)) {
-                            up = false;
-                            down = true;
-                        }
+//                        if (!canMove(x - SPEED, y) && !canMove(x + SPEED, y)) {
+//                            up = false;
+//                            down = true;
+//                        }
                     } else {
                         up = true;
                         down = false;
@@ -200,10 +192,10 @@ public class Oneal extends Entity {
                         }
 
                         //Nếu k thể xuống dưới, sang trái và sang phải thì đi xuống
-                        if (!canMove(x - SPEED, y) && !canMove(x + SPEED, y)) {
-                            up = true;
-                            down = false;
-                        }
+//                        if (!canMove(x - SPEED, y) && !canMove(x + SPEED, y)) {
+//                            up = true;
+//                            down = false;
+//                        }
                     } else {
                         up = false;
                         down = true;
@@ -215,6 +207,9 @@ public class Oneal extends Entity {
                 if (!isFind && BombermanGame.getBomberMan().getX() / 32 < x / 32) {
                     //Nếu không thể sang trái
                     if (!canMove(x - SPEED, y)) {
+                        up = true;
+                        down = false;
+
                         //Nếu không thể đi xuống thì đi lên, không thì đi xuống
                         if (!canMove(x, y + SPEED)) {
                             up = true;
@@ -226,10 +221,10 @@ public class Oneal extends Entity {
                         }
 
                         //Nếu không thể sang trái, đi lên và đi xuống thì đi sang phải
-                        if(!canMove(x, y + SPEED) && !canMove(x, y - SPEED)) {
-                            right = true;
-                            left = false;
-                        }
+//                        if(!canMove(x, y + SPEED) && !canMove(x, y - SPEED)) {
+//                            right = true;
+//                            left = false;
+//                        }
                     } else {
                         right = false;
                         left = true;
@@ -305,60 +300,10 @@ public class Oneal extends Entity {
         }
     }
 
-    public boolean distanceBomber(int i) {
-        //i la distance
-        //Toa do cua Bomberman
-        int a1 = BombermanGame.getBomberMan().getX() / 32;
-        int b1 = BombermanGame.getBomberMan().getY() / 32;
+    public boolean distanceBomber() {
+        int Bomber_x = BombermanGame.getBomberMan().getX();
+        int Bomber_y = BombermanGame.getBomberMan().getY();
 
-        int a2 = (BombermanGame.getBomberMan().getX() + 32 - 1) / 32;
-        int b2 = BombermanGame.getBomberMan().getY() / 32;
-
-        int a3 = BombermanGame.getBomberMan().getX() / 32;
-        int b3 = (BombermanGame.getBomberMan().getY() + 32 - 1) / 32;
-
-        int a4 = (BombermanGame.getBomberMan().getX() + 32 - 1) / 32;
-        int b4 = (BombermanGame.getBomberMan().getY() + 32 - 1) / 32;
-
-        int Oneal_x = x / 32;
-        int Oneal_y = y / 32;
-
-        return (Math.abs(Oneal_x - a1) <= i && Math.abs(Oneal_y - b1) <= i)
-                || (Math.abs(Oneal_x - a2) <= i && Math.abs(Oneal_y - b2) <= i)
-                || (Math.abs(Oneal_x - a3) <= i && Math.abs(Oneal_y - b3) <= i)
-                || (Math.abs(Oneal_x - a4) <= i && Math.abs(Oneal_y - b4) <= i);
+        return (((Math.abs(x - Bomber_x) / 32) <= 4) && ((Math.abs(y - Bomber_y) / 32) <= 4));
     }
-
-
-//    public boolean distanceBomber(int a, int b, int i, String direction) {
-//        //Top
-//        if(!direction.equals("down")) {
-//            int x_top = a;
-//            int y_top = b + 32;
-//            if (canMove(x_top, y_top)) {
-//                if(isBomber(x_top, y_top) && i<= 5) {
-//                    return true;
-//                } else {
-//                    i++;
-//                    distanceBomber(x_top, y_top, i, "top");
-//                }
-//            }
-//        }
-//
-//
-//
-//        //Right
-//        int x_right = canMove(a + 32, b) ? a + 32 : a;
-//        int y_right = b;
-//
-//        //Down
-//        int x_down = a;
-//        int y_down = canMove(a, b + 32) ? b + 32 : b;
-//
-//        //Left
-//        int x_left = canMove(a - 32, b) ? a - 32 : a;
-//        int y_left = b;
-//
-//
-//    }
 }
